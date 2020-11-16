@@ -4,6 +4,7 @@ import time
 import numpy as np
 import sounddevice as sd
 from ctypes import *
+from scipy.io.wavfile import write
 
 
 def init():    
@@ -56,7 +57,7 @@ def acquire_demod(buf_size, num_samples=300):
             # Amplify by multiplication
             am_mod_amp = 100 * am_mod_flat
             # Square law detector
-            # 1. Square the signal to invert data
+            # 1. Square the signal to invert negative side
             am_data_sq = am_mod_amp ** 2
             # 2. Downsample by reshaping and averaging
             am_dwn_sam = am_data_sq.reshape(-1, 16).mean(axis=1)
